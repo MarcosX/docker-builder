@@ -16,6 +16,11 @@ jobs:
       - run:
           name: Scan the local image with trivy
           command: trivy --clear-cache --no-progress --severity HIGH,CRITICAL local/docker-builder
+      - run:
+          name: DevSec Linux Baseline tests
+          command: |
+            inspec exec --chef-license accept https://github.com/dev-sec/linux-baseline \
+              -t docker://$(docker run -it --rm -d local/docker-builder sh)
 workflows:
   version: 2
   build_and_test:

@@ -8,6 +8,8 @@ ENV INSPEC_VERSION 4.18.39
 RUN chmod 600 /etc/shadow && \
       touch /etc/login.defs 
 
+RUN apk add --no-cache docker
+
 # Install hadolint
 RUN wget https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-x86_64 -O hadolint && \
       chmod +x hadolint && \
