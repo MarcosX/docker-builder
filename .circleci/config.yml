@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: marcosx/docker-builder:0.0.1
+    steps:
+      - checkout
+      - run:
+          name: Lint Dockerfile
+          command: hadolint Dockerfile
+      - setup_remote_docker
+      - run:
+          name: Build local image (local/docker-builder)
+          command: |
+            docker build . -t local/docker-builder
+      - run:
+          name: Scan the local image with trivy
+          command: trivy --clear-cache --no-progress --severity HIGH,CRITICAL local/docker-builder
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+
