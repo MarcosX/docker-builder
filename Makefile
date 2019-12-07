@@ -1,5 +1,6 @@
 buildlocal:
-	docker build . -t local/docker-builder
+	hadolint Dockerfile && \
+		docker build . -t local/docker-builder
 
 #testlocal:
 #	docker build . -f Dockerfile.test -t local/test && \
