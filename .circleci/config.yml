@@ -19,7 +19,7 @@ jobs:
       - run:
           name: DevSec Linux Baseline tests
           command: |
-            inspec exec --chef-license accept --no-distinct-exit https://github.com/dev-sec/linux-baseline \
+            inspec exec --chef-license accept --no-distinct-exit linux-baseline-2.3.0 \
               -t docker://$(docker run -it --rm -d local/docker-builder sh)
 workflows:
   version: 2

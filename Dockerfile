@@ -1,5 +1,7 @@
 FROM alpine:3.10
 LABEL maintainer=MarcosX
+ENV DOCKER_CONTENT_TRUST 1
+
 ENV HADOLINT_VERSION 1.17.3
 ENV TRIVY_VERSION 0.2.1
 ENV INSPEC_VERSION 4.18.39
@@ -25,3 +27,4 @@ RUN wget https://api.bintray.com/content/habitat/stable/linux/x86_64/hab-%24late
       tar -xvzf hab.tgz -C /usr/local/bin --strip-components 1 && \
       hab license accept && \
       hab pkg install chef/inspec --binlink
+
