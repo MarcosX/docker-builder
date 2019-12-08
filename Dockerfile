@@ -26,5 +26,6 @@ RUN wget https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSIO
 RUN wget https://api.bintray.com/content/habitat/stable/linux/x86_64/hab-%24latest-x86_64-linux.tar.gz?bt_package=hab-x86_64-linux -O hab.tgz && \
       tar -xvzf hab.tgz -C /usr/local/bin --strip-components 1 && \
       hab license accept && \
-      hab pkg install chef/inspec --binlink
+      hab pkg install chef/inspec --binlink && \
+      inspec version --chef-license accept
 
