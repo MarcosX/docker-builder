@@ -26,5 +26,6 @@ RUN wget https://api.bintray.com/content/habitat/stable/linux/x86_64/hab-%24late
       tar -xvzf hab.tgz -C /usr/local/bin --strip-components 1 && \
       hab license accept && \
       hab pkg install chef/inspec --binlink && \
-      inspec version --chef-license accept
+      mkdir -p /etc/chef/accepted_licenses
 
+COPY inspec /etc/chef/accepted_licenses/inspec
