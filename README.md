@@ -3,8 +3,8 @@
 # docker-builder
 Docker image with all the tools to build other docker images
 
-CVEs are checked with [Trivy](https://github.com/aquasecurity/trivy) and baseline tests are run using
-[DevSec Linux Baseline](https://github.com/dev-sec/linux-baseline) and
+CVEs are checked with [Trivy](https://github.com/aquasecurity/trivy) and applicable baseline
+tests are run using [DevSec Linux Baseline](https://github.com/dev-sec/linux-baseline) and
 [DevSec CIS Docker Benchmark](https://github.com/dev-sec/cis-docker-benchmark)
 
 # Build and test locally
@@ -18,5 +18,4 @@ make testlocal # runs a container and then inspec tests
 
 * Run CIS Docker benchmark in the pipeline
 * Publish development version of image
-* Test with sample Dockerfile
 * PUblish tagged version of the image

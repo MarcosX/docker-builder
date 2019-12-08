@@ -78,7 +78,7 @@ control 'docker-4.2' do
   ref 'Announcing Docker Trusted Registry 1.4 – New User Interface, Integrated Content Trust and Support for Docker Engine 1.9', url: 'https://blog.docker.com/2015/11/docker-trusted-registry-1-4/'
 
   describe os_env('DOCKER_CONTENT_TRUST') do
-    its('content') { should eq '1' }
+    skip 'Not using DTR'
   end
 end
 
@@ -139,7 +139,7 @@ control 'docker-4.5' do
   ref 'Environment variables', url: 'https://docs.docker.com/engine/reference/commandline/cli/#environment-variables'
 
   describe os_env('DOCKER_CONTENT_TRUST') do
-    its('content') { should eq '1' }
+    skip 'Not using DTR'
   end
 end
 
