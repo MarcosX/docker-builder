@@ -3,7 +3,7 @@
 # docker-builder
 Docker image with all the tools to build other docker images
 
-CVEs are checked with [Trivy]() and baseline tests are run using
+CVEs are checked with [Trivy](https://github.com/aquasecurity/trivy) and baseline tests are run using
 [DevSec Linux Baseline](https://github.com/dev-sec/linux-baseline) and
 [DevSec CIS Docker Benchmark](https://github.com/dev-sec/cis-docker-benchmark)
 
