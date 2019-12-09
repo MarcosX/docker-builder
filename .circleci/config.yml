@@ -17,6 +17,11 @@ jobs:
           name: Scan the local image with trivy
           command: trivy --clear-cache --no-progress --severity HIGH,CRITICAL local/docker-builder
       - run:
+          name: Local tests
+          command: |
+            inspec exec test \
+              -t docker://$(docker run -it --rm -d local/docker-builder sh)
+      - run:
           name: DevSec Tests
           command: |
             inspec exec --no-distinct-exit linux-baseline-2.3.0 cis-docker-benchmark-2.1.0 \

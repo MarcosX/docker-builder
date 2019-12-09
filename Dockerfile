@@ -9,6 +9,7 @@ ENV INSPEC_VERSION 4.18.39
 RUN chmod 600 /etc/shadow && \
       touch /etc/login.defs 
 
+# Install docker
 RUN apk add --no-cache docker
 
 # Install hadolint
@@ -28,4 +29,5 @@ RUN wget https://api.bintray.com/content/habitat/stable/linux/x86_64/hab-%24late
       hab pkg install chef/inspec --binlink && \
       mkdir -p /etc/chef/accepted_licenses
 
+# Accept inspec license
 COPY inspec /etc/chef/accepted_licenses/inspec
