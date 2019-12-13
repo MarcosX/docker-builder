@@ -26,6 +26,13 @@ jobs:
           command: |
             inspec exec --no-distinct-exit linux-baseline-2.3.0 cis-docker-benchmark-2.1.0 \
               -t docker://$(docker run -it --rm -d local/docker-builder sh)
+      - run:
+          name: Publish dev version
+          command: |
+            docker tag local/docker-builder marcosx/docker-builder:$CIRCLE_SHA1
+            echo $DOCKER_PASSWORD > docker-password.txt
+            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+            docker push marcosx/docker-builder:$CIRCLE_SHA1
 workflows:
   version: 2
   build_and_test:
