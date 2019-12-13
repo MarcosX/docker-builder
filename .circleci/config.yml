@@ -31,7 +31,7 @@ jobs:
           command: |
             docker tag local/docker-builder marcosx/docker-builder:$CIRCLE_SHA1
             echo $DOCKER_PASSWORD > docker-password.txt
-            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+            cat docker-password.txt | docker login -u $DOCKER_LOGIN --password-stdin
             docker push marcosx/docker-builder:$CIRCLE_SHA1
 workflows:
   version: 2
