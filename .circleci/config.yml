@@ -5,10 +5,10 @@ jobs:
       - image: marcosx/docker-builder:0.0.1
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Lint Dockerfile
           command: hadolint Dockerfile
-      - setup_remote_docker
       - run:
           name: Build local image (local/docker-builder)
           command: |
@@ -30,8 +30,7 @@ jobs:
           name: Publish dev version
           command: |
             docker tag local/docker-builder marcosx/docker-builder:$CIRCLE_SHA1
-            echo $DOCKER_PASSWORD > docker-password.txt
-            cat docker-password.txt | docker login -u $DOCKER_LOGIN --password-stdin
+            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
             docker push marcosx/docker-builder:$CIRCLE_SHA1
 workflows:
   version: 2
