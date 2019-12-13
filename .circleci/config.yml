@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
@@ -30,8 +30,7 @@ jobs:
           name: Publish dev version
           command: |
             docker tag local/docker-builder marcosx/docker-builder:$CIRCLE_SHA1
-            echo $DOCKER_PASSWORD > docker-password.txt
-            docker login -u $DOCKER_LOGIN -p $(cat docker-password.txt)
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push marcosx/docker-builder:$CIRCLE_SHA1
 workflows:
   version: 2
