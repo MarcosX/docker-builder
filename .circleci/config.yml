@@ -16,6 +16,8 @@ workflows:
           filters:
             tags:
               only: /.*/
+            branches:
+              ignore: /.*/
 
 jobs:
   build:
