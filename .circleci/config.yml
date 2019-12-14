@@ -6,6 +6,16 @@ workflows:
     jobs:
       - build:
           context: dockerhub
+          filters:
+            branches:
+              only: master
+  release:
+    jobs:
+      - publish:
+          context: dockerhub
+          filters:
+            tags:
+              only: /.*/
 
 jobs:
   build:
@@ -34,19 +44,25 @@ jobs:
           command: |
             inspec exec --no-distinct-exit linux-baseline-2.3.0 cis-docker-benchmark-2.1.0 \
               -t docker://$(docker run -it --rm -d local/docker-builder sh)
-      - publish
-
-commands:
-  publish:
-    parameters:
-      tag:
-        type: string
-        default: $CIRCLE_SHA1
-        description: Docker tag
-    steps:
       - run:
           name: Publish dev version
           command: |
-            docker tag local/docker-builder marcosx/docker-builder:<< parameters.tag >>
+            docker tag local/docker-builder marcosx/docker-builder:$CIRCLE_SHA1
             docker login -u "${DOCKER_LOGIN}" -p "${DOCKER_PASSWORD}"
             docker push marcosx/docker-builder:$CIRCLE_SHA1
+  publish:
+    docker:
+      - image: marcosx/docker-builder:0.0.1
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Publish dev version
+          command: |
+            docker pull marcosx/docker-builder:$CIRCLE_SHA1
+            docker tag marcosx/docker-builder:$CIRCLE_SHA1 marcosx/docker-builder:$CIRCLE_TAG
+            docker tag marcosx/docker-builder:$CIRCLE_SHA1 marcosx/docker-builder:latest
+            docker login -u "${DOCKER_LOGIN}" -p "${DOCKER_PASSWORD}"
+            docker push marcosx/docker-builder:$CIRCLE_TAG
+            docker push marcosx/docker-builder:latest
+
